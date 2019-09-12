@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 import THREE from 'libs/engines/3d/three'
 
-import LevControls from 'libs/engines/3d/units/LevControls'
-
 import ResizeObserver from 'resize-observer-polyfill'
 
-const targetToCamera = 5
+import backgroundImage from 'img/test.png'
+
+import LevControls from 'libs/engines/3d/units/LevControls'
+
+const targetToCamera = 6.9
 
 export default class ThreeScene extends Component{
   constructor(props) {
@@ -22,7 +24,7 @@ export default class ThreeScene extends Component{
     this.camera.aspect = ViewerDiv.clientWidth / ViewerDiv.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
-    this.controls.update()
+    // this.controls.update()
 
     if (ViewerDiv.clientWidth < 500 || ViewerDiv.clientHeight < 500)
       this.renderer.setPixelRatio(2)
@@ -40,7 +42,7 @@ export default class ThreeScene extends Component{
 
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    this.renderer.setClearColor('#ffffff')
+    // this.renderer.setClearColor('#ffffff')
     this.renderer.setSize(width, height)
     if (width < 500 || height < 500)
       this.renderer.setPixelRatio(2)
@@ -48,6 +50,8 @@ export default class ThreeScene extends Component{
 
     //ADD SCENE
     this.scene = new THREE.Scene()
+    this.scene.background = new THREE.CubeTextureLoader()
+      .load( [ backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage ] );
 
     //ADD CAMERA
     this.camera = new THREE.PerspectiveCamera(
@@ -56,11 +60,11 @@ export default class ThreeScene extends Component{
       0.1,
       1000
     )
-    this.controls = new LevControls( this.camera, ViewerDiv )
-    this.controls.panSpeed = 1.5
-    this.controls.enableKeys = false
+    // this.controls = new LevControls( this.camera, ViewerDiv )
+    // this.controls.panSpeed = 1.5
+    // this.controls.enableKeys = false
     this.camera.position.z = targetToCamera
-    this.controls.update()
+    // this.controls.update()
 
     this.units = []
     const props = {
@@ -108,39 +112,7 @@ export default class ThreeScene extends Component{
 
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate)
-    this.controls.update()
-  }
-
-  setCamera = (position, target, transition = true) => {
-    // this.camera.position.fromArray(position)
-    // this.controls.target.fromArray(target)
-    // const newPosition = new THREE.Vector3(...position)
-    // console.log(target)
-    if (typeof target === "undefined" || this.transitions.length > 0)
-      return
-    const newTarget = new THREE.Vector3(...target)
-    const newPosition = newTarget.clone()
-      .add(this.camera.position.clone()
-        .sub(this.controls.target)
-        .normalize()
-        .multiplyScalar(targetToCamera)
-      )
-
-    if (transition) {
-      let numberOfFrames = new THREE.Vector3()
-        .subVectors(newPosition, this.camera.position)
-        .lengthSq() ** .25 * 3
-      numberOfFrames = Math.ceil(numberOfFrames)
- 
-      this.registerTransition(this.camera.position, newPosition, numberOfFrames)
-      this.registerTransition(this.controls.target, newTarget, numberOfFrames)
-    }
-    else {
-      this.camera.position.copy(newPosition)
-      this.controls.target.copy(newTarget)
-    }
-
-    this.controls.update()
+    // this.controls.update()
   }
 
   registerTransition = (variable, value, numberOfFrames) => {
