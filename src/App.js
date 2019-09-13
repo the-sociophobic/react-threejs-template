@@ -10,14 +10,18 @@ import 'styles/modificators.sass'
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Helmet />
-        <Switch>
-          {routes.map(route =>
-            <Route {...route} key={route.path} />
-          )}
-        </Switch>
-      </Router>
+      <div className="App">
+        <div className="content">
+          <Router>
+            <Helmet />
+            <Switch>
+              {routes.map(route =>
+                <Route {...route} key={route.path} />
+              )}
+            </Switch>
+          </Router>
+        </div>
+      </div>
     )
   }
 }

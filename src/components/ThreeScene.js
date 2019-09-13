@@ -4,9 +4,9 @@ import THREE from 'libs/engines/3d/three'
 
 import ResizeObserver from 'resize-observer-polyfill'
 
-import backgroundImage from 'img/test.png'
+// import backgroundImage from 'img/test.png'
 
-import LevControls from 'libs/engines/3d/units/LevControls'
+// import LevControls from 'libs/engines/3d/units/LevControls'
 
 const targetToCamera = 6
 
@@ -45,8 +45,8 @@ export default class ThreeScene extends Component{
 
     //ADD SCENE
     this.scene = new THREE.Scene()
-    this.scene.background = new THREE.CubeTextureLoader()
-      .load( [ backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage ] );
+    // this.scene.background = new THREE.CubeTextureLoader()
+    //   .load( [ backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage ] );
 
     //ADD CAMERA
     this.camera = new THREE.PerspectiveCamera(
@@ -55,9 +55,9 @@ export default class ThreeScene extends Component{
       0.1,
       1000
     )
-    this.controls = new LevControls( this.camera, ViewerDiv )
-    this.controls.panSpeed = 1.5
-    this.controls.enableKeys = false
+    // this.controls = new LevControls( this.camera, ViewerDiv )
+    // this.controls.panSpeed = 1.5
+    // this.controls.enableKeys = false
     this.camera.position.set(0, 0, targetToCamera)
     // this.controls.update()
 
