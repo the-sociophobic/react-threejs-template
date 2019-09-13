@@ -8,7 +8,7 @@ import backgroundImage from 'img/test.png'
 
 import LevControls from 'libs/engines/3d/units/LevControls'
 
-const targetToCamera = 6.9
+const targetToCamera = 6
 
 export default class ThreeScene extends Component{
   constructor(props) {
@@ -26,10 +26,6 @@ export default class ThreeScene extends Component{
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
     // this.controls.update()
 
-    if (ViewerDiv.clientWidth < 500 || ViewerDiv.clientHeight < 500)
-      this.renderer.setPixelRatio(2)
-    else
-      this.renderer.setPixelRatio(1)
   }
 
   componentDidMount() {
@@ -44,8 +40,7 @@ export default class ThreeScene extends Component{
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     // this.renderer.setClearColor('#ffffff')
     this.renderer.setSize(width, height)
-    if (width < 500 || height < 500)
-      this.renderer.setPixelRatio(2)
+    this.renderer.setPixelRatio(1)
     ViewerDiv.appendChild(this.renderer.domElement)
 
     //ADD SCENE
@@ -60,10 +55,10 @@ export default class ThreeScene extends Component{
       0.1,
       1000
     )
-    // this.controls = new LevControls( this.camera, ViewerDiv )
-    // this.controls.panSpeed = 1.5
-    // this.controls.enableKeys = false
-    this.camera.position.z = targetToCamera
+    this.controls = new LevControls( this.camera, ViewerDiv )
+    this.controls.panSpeed = 1.5
+    this.controls.enableKeys = false
+    this.camera.position.set(0, 0, targetToCamera)
     // this.controls.update()
 
     this.units = []

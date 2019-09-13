@@ -1,7 +1,8 @@
 import Unit from 'libs/engines/3d/Unit'
 
-import logoImage from 'img/displacement__.png'
-import backgroundImage from 'img/test.png'
+import logoImage from 'img/NormalMap.png'
+// import backgroundImage from 'img/test.jpg'
+import backgroundImage from 'img/grad.png'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
@@ -21,14 +22,14 @@ export default class Cube extends Unit {
 
       this.plane = new THREE.Mesh(geometry, material)
       this.plane.position.set(0, 0, -1)
-      this.plane.scale.set(1.5, 1.5, 1.5)
+      this.plane.scale.set(1, 1, 1)
 
       document.addEventListener('mousemove', e => {
         if (e.pageX && e.pageY)
           this.plane.position.set(
-            (window.innerWidth / 2 - e.pageX) / 200,
-            (-window.innerHeight / 2 + e.pageY) / 200,
-            -1)
+            (window.innerWidth / 2 - e.pageX) / 800,
+            (-window.innerHeight / 2 + e.pageY) / 800,
+            this.plane.position.z)
       })
 
       scene.add(this.plane)
