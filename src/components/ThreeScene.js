@@ -45,8 +45,16 @@ export default class ThreeScene extends Component{
 
     //ADD SCENE
     this.scene = new THREE.Scene()
+    const backgroundImageCustom = (document.getElementById("skybox") && document.getElementById("skybox").src) || backgroundImage
     this.scene.background = new THREE.CubeTextureLoader()
-      .load( [ backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage, backgroundImage ] );
+      .load( [
+        backgroundImageCustom,
+        backgroundImageCustom,
+        backgroundImageCustom,
+        backgroundImageCustom,
+        backgroundImageCustom,
+        backgroundImageCustom
+      ] );
 
     //ADD CAMERA
     this.camera = new THREE.PerspectiveCamera(

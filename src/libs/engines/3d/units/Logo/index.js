@@ -15,8 +15,9 @@ export default class Cube extends Unit {
 
     const geometry = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
 
+    const backgroundImageCustom = (document.getElementById("main-image") && document.getElementById("main-image").src) || backgroundImage
     new THREE.TextureLoader()
-    .load(backgroundImage, texture => {
+    .load(backgroundImageCustom, texture => {
 
       let material = new THREE.MeshBasicMaterial({ map: texture })
 
@@ -36,8 +37,9 @@ export default class Cube extends Unit {
     })
 
 
+    const logoImageCustom = (document.getElementById("prism") && document.getElementById("prism").src) || logoImage
     new THREE.TextureLoader()
-    .load(logoImage, texture => {
+    .load(logoImageCustom, texture => {
 
       let refractor = new Refractor( geometry, {
         color: 0x999999,
